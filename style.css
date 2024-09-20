@@ -1,188 +1,173 @@
 /*ازالة اي تعديل من الصفحه عشان اعدله انا بعدين على راحتي */
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 /* توسيط كل العناصر في منتصف الصفحه*/
-body{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    height: 80vh;
-    user-select: none;
-    background: url(Screenshot23-1920x1080-a2f8a3c1f88f3b5716bdd8c9a2ea0c28.avif);
+body {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 80vh;
+  user-select: none;
+  background: url(Screenshot23-1920x1080-a2f8a3c1f88f3b5716bdd8c9a2ea0c28.avif);
 }
 
-
 /*ضبط و توسيط كامل العناصر في الحاوية*/
-.contaniner{
-    width: 800px;
-    background-color: burlywood;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin: 20px;
+.contaniner {
+  width: 800px;
+  background-color: burlywood;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 20px;
 }
 
 /*ضبط العنوان الريئيسي الخاص باللعبة*/
-.head1{
-    color: white;
-    font-family: 'Poppins', sans-serif;
-    margin-bottom: 20px;
-    font-weight: 900;
+.head1 {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 20px;
+  font-weight: 900;
 }
 /*ضبط عوان اختيار مستوى اللعب*/
-.head2{
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
-    color: white;
+.head2 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  color: white;
 }
-
 
 /*ضبط شكل التفاصيل بحيث يصير فتحها سلس*/
 .details {
-    margin-bottom: 20px;
-    overflow: hidden;
-    transition: max-height 0.5s ease; 
-    max-height: 40px; 
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  max-height: 40px;
 }
-  
-  /**/
-  details summary {
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-  
-  /**/
-  .Simplified-explanation {
-    margin-top: 10px;
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  /**/
-  .details[open] {
-    position: relative; 
-    max-height: 500px;
-    transition:  0.5s ease;
-  }
-  
-
-
-
- 
-
- 
 
 /**/
-.summary{
-    margin-bottom: 18px;
-    font-weight: 600;
-    font-size: 21px;
-    list-style: none;
-    cursor: pointer;
-    color: white;
-    font-family: 'Poppins', sans-serif;
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
+/**/
+.Simplified-explanation {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/**/
+.details[open] {
+  position: relative;
+  max-height: 500px;
+  transition: 0.5s ease;
+}
+
+/**/
+.summary {
+  margin-bottom: 18px;
+  font-weight: 600;
+  font-size: 21px;
+  list-style: none;
+  cursor: pointer;
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
 
 /*ضبط الكلام في داخل التفاصيل */
-.Simplified-explanation{
-    width: 450px;
-    font-size: 18px;
-    font-weight: 800;
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    margin-bottom: 50px;
-    
+.Simplified-explanation {
+  width: 450px;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: "Poppins", sans-serif;
+  color: white;
+  margin-bottom: 50px;
 }
 
 /*ضبط حقل ادخال الاسم */
-.input-the-name{
-    display: flex;
-    text-align: center;
-    width: 350px;
-    height: 40px;
-    border: none;
-    border-radius: 20px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 22px;
-    margin-bottom: 60px;
-    
+.input-the-name {
+  display: flex;
+  text-align: center;
+  width: 350px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  margin-bottom: 60px;
 }
-
 
 /*ضبط حاوية البطاقات الخاصه بمستوى الصعوبة*/
-.contaniner-cards{
-    display: flex;
-    margin: 40px;
-
+.contaniner-cards {
+  display: flex;
+  margin: 40px;
 }
 /*ضبط البطاقة الاولى*/
-.card1{
-    width: 250px;
-    height: 298px;
-    background-color: red;
-    border: none;
-    border-radius: 20px;
-    padding: 20px 30px 30px 30px;
-    margin-right: 40PX;
-    
+.card1 {
+  width: 250px;
+  height: 298px;
+  background-color: red;
+  border: none;
+  border-radius: 20px;
+  padding: 20px 30px 30px 30px;
+  margin-right: 40px;
 }
 /*ضبط عنوان البطاقة الاولى و الثانية*/
-.head3{
-    font-size: 30px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
-    margin-bottom: 40px;
-    background-color: blue;
-    border: none;
-    border-radius: 8px;
+.head3 {
+  font-size: 30px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  margin-bottom: 40px;
+  background-color: blue;
+  border: none;
+  border-radius: 8px;
 }
 
 /* ضبط حاوية شرح البطاقة الاولى*/
-.Explanation-of-the-first-card{
-    background-color: #333;
-    height: 140px;
+.Explanation-of-the-first-card {
+  background-color: #333;
+  height: 140px;
 }
 /*ضبط الكلام المكتوب الخاص بشرح البطاقة الاولى*/
-.Explanation-of-the-first-card p{
-    font-size: 23px;
-    font-weight: 600;
+.Explanation-of-the-first-card p {
+  font-size: 23px;
+  font-weight: 600;
 }
 /*ضبط البطاقة الثانية*/
-.card2{
-    width: 250px;
-    height: 298px;
-    background-color: red;
-    border: none;
-    border-radius: 20px;
-    padding: 20px 30px 30px 30px;
-    margin-left: 40PX;
+.card2 {
+  width: 250px;
+  height: 298px;
+  background-color: red;
+  border: none;
+  border-radius: 20px;
+  padding: 20px 30px 30px 30px;
+  margin-left: 40px;
 }
 /*ضبط  حاوية شرح البطاقه الثانية*/
-.Explanation-of-the-second-card{
-    background-color: #333;
-    height: 140px;
+.Explanation-of-the-second-card {
+  background-color: #333;
+  height: 140px;
 }
 /*ضبط الكلام المكتوب الخاص بشرح البطاقة الثانية*/
-.Explanation-of-the-second-card p{
-    font-size: 23px;
-    font-weight: 600;
+.Explanation-of-the-second-card p {
+  font-size: 23px;
+  font-weight: 600;
 }
 /*ضبط زر بدأ اللعبة في البطاقة الاولى و الثانية*/
-.button{
-    margin-top: 10px;
-    border: none;
-    border-radius: 15px;
-    padding: 10px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
+.button {
+  margin-top: 10px;
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
 }
