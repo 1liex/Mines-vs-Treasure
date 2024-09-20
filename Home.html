@@ -1,13 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    
-</body>
-<script src="game.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="contaniner">
+      <!--هذي حاوية اللعبة كل عناصر اللعبة في الداخل -->
+
+      <!--العنوان الاول-->
+      <h1 class="head1">Welcome to Mines-vs-Treasure game</h1>
+      <!---->
+      <!--شرح بسيط عن اللعبة بشكل عام و ايش الفرق بينها و بين اللعبة الاصليه -->
+      <details class="details">
+        <summary class="summary">Simplified explanation</summary>
+        <p class="Simplified-explanation">
+          This game is a little different than usual. Bombs will reduce your
+          points and tell you whether you are close to the treasure or not.
+        </p>
+      </details>
+      <!---->
+      <!--حقل ادخال الاسم-->
+      <input
+        type="text"
+        class="input-the-name"
+        id="input-the-name"
+        placeholder="Please enter your name"
+      />
+      <!---->
+      <!--العنوان الثاني لاختيار مستوى اللعب-->
+      <h2 class="head2">Please select a difficulty level</h2>
+      <!---->
+      <!--بطاقة المستوى السهل بيكون فيها شرح بسيط ايش بتواجة بالمستوى السهل-->
+      <div class="contaniner-cards">
+        <div class="card1">
+          <h3 class="head3">Easy level</h3>
+          <div class="Explanation-of-the-first-card">
+            <p>
+              There will be 10 bombs on the way, and if you press the bomb, you
+              will lose 5 points
+            </p>
+          </div>
+          <button class="button" onclick="StatrGameEasy()">START</button>
+        </div>
+        <!---->
+        <!--بطاقة المستوى الصعب بيكون فيها شرح بسيط ايش بتواجة بالمستوى الصعب -->
+        <div class="card2">
+          <h3 class="head3">Hard level</h3>
+          <div class="Explanation-of-the-second-card">
+            <p>
+              There will be 20 bombs on the way, and if you press the bomb, you
+              will lose 7 points
+            </p>
+          </div>
+          <button class="button" onclick="StartGameHard()">START</button>
+        </div>
+      </div>
+      <!---->
+    </div>
+  </body>
+  <script src="game.js"></script>
 </html>
