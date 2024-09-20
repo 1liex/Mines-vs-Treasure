@@ -11,6 +11,8 @@ body{
     text-align: center;
     align-items: center;
     height: 80vh;
+    user-select: none;
+    background: url(Screenshot23-1920x1080-a2f8a3c1f88f3b5716bdd8c9a2ea0c28.avif);
 }
 
 
@@ -67,8 +69,13 @@ body{
   .details[open] {
     position: relative; 
     max-height: 500px;
-    transition: max-height 0.5s ease;
+    transition:  0.5s ease;
   }
+  
+
+
+
+ 
 
  
 
@@ -98,13 +105,14 @@ body{
 /*ضبط حقل ادخال الاسم */
 .input-the-name{
     display: flex;
+    text-align: center;
     width: 350px;
     height: 40px;
-    padding-left:100px;
     border: none;
     border-radius: 20px;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
+    font-size: 22px;
     margin-bottom: 60px;
     
 }
@@ -176,4 +184,5 @@ body{
     padding: 10px;
     font-size: 15px;
     font-weight: 700;
+    cursor: pointer;
 }
