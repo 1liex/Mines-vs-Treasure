@@ -10,21 +10,29 @@ body {
   justify-content: center;
   text-align: center;
   align-items: center;
-  height: 80vh;
+  height: 100vh;
   user-select: none;
-  background: url(Screenshot23-1920x1080-a2f8a3c1f88f3b5716bdd8c9a2ea0c28.avif);
+  background: url(3d-cartoon-night-sky\ \(1\).jpg) no-repeat;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
 }
 
 /*ضبط و توسيط كامل العناصر في الحاوية*/
 .contaniner {
-  width: 800px;
-  background-color: burlywood;
+  width: 650px;
+  padding: 20px;
+  background-image: linear-gradient(395deg, rgba(43, 77, 130,0.3),rgba(40, 144, 172,0.5));
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   margin: 20px;
+  border-radius: 20px;
+  border: none;
 }
 
 /*ضبط العنوان الريئيسي الخاص باللعبة*/
@@ -32,12 +40,14 @@ body {
   color: white;
   font-family: "Poppins", sans-serif;
   margin-bottom: 20px;
-  font-weight: 900;
+  font-weight: 700;
+  padding: 0 10px;
 }
 /*ضبط عوان اختيار مستوى اللعب*/
 .head2 {
   font-family: "Poppins", sans-serif;
-  font-weight: 800;
+  font-weight: 700;
+  font-size: 28px;
   color: white;
 }
 
@@ -108,58 +118,83 @@ details summary {
 /*ضبط حاوية البطاقات الخاصه بمستوى الصعوبة*/
 .contaniner-cards {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   margin: 40px;
 }
 /*ضبط البطاقة الاولى*/
 .card1 {
   width: 250px;
-  height: 298px;
-  background-color: red;
+  height: 360px;
+  background-image: linear-gradient(148deg, rgba(92,50,129, 0.5),rgba(22,91,145, 0.7));
   border: none;
   border-radius: 20px;
   padding: 20px 30px 30px 30px;
   margin-right: 40px;
 }
+
+
 /*ضبط عنوان البطاقة الاولى و الثانية*/
 .head3 {
   font-size: 30px;
   font-family: "Poppins", sans-serif;
   font-weight: 800;
   margin-bottom: 40px;
-  background-color: blue;
-  border: none;
-  border-radius: 8px;
+  color: aliceblue;
 }
 
 /* ضبط حاوية شرح البطاقة الاولى*/
 .Explanation-of-the-first-card {
-  background-color: #333;
-  height: 140px;
+  background-color: rgba(51, 51, 51,0.6);
+  border-radius: 20px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-top: -8px;
+  margin-bottom: 10px;
 }
 /*ضبط الكلام المكتوب الخاص بشرح البطاقة الاولى*/
 .Explanation-of-the-first-card p {
   font-size: 23px;
   font-weight: 600;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 160px;
+  color: aliceblue;
+  font-family: "Poppins", sans-serif;
 }
+/**/
 /*ضبط البطاقة الثانية*/
 .card2 {
   width: 250px;
-  height: 298px;
-  background-color: red;
+  height: 360px;
+  background-image: linear-gradient(316deg, rgba(92,50,129, 0.5),rgba(22,91,145, 0.7));
   border: none;
   border-radius: 20px;
   padding: 20px 30px 30px 30px;
   margin-left: 40px;
+  
 }
 /*ضبط  حاوية شرح البطاقه الثانية*/
 .Explanation-of-the-second-card {
-  background-color: #333;
-  height: 140px;
+  background-color: rgba(51, 51, 51,0.6); 
+  border-radius: 20px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-top: -8px;
+  margin-bottom: 10px;
 }
 /*ضبط الكلام المكتوب الخاص بشرح البطاقة الثانية*/
 .Explanation-of-the-second-card p {
   font-size: 23px;
   font-weight: 600;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 160px;
+  color: aliceblue;
+  font-family: "Poppins", sans-serif;
 }
 /*ضبط زر بدأ اللعبة في البطاقة الاولى و الثانية*/
 .button {
