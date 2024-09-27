@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Document</title/>
-    <link rel="stylesheet" href="style.css"/>
-</head>
-<body  >
-	<h2 id="show-name" onfocus="name()" class="show-name" ></h2>
-	<h3 id="show-chance" class="show-chance" > </h3>
-	<button onclick="Return()" class="return">Return</button>
-	<button id="close" class="close">Close the game</button>
-	<canvas id="canvas" class="canvas" width="400" height="400"></canvas>
-	
-</body>
+	<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<h2 id="show-name"  class="show-name" ></h2>     <!-- for name -->
+		<h3 id="show-chance" class="show-chance" > </h3> <!-- to show the chances -->
+		<a href="Home.html"> <!-- Herf to the mine Page -->
+		<button id="return" class="return">Return</button><!-- a button to return -->
+		</a> 
+		<button onclick="close()" id="close" class="close">Close the game</button> <!--a butoon to close the game -->
+		<canvas id="canvas" class="canvas" width="400" height="400"></canvas> <!-- the game -->
+		
+	</body>
 <script src="game.js"></script>
 </html>
