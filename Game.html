@@ -1,20 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-	</head>
-	<body>
-		<h2 id="show-name"  class="show-name" ></h2>     <!-- for name -->
-		<h3 id="show-chance" class="show-chance" > </h3> <!-- to show the chances -->
-		<a href="Home.html"> <!-- Herf to the mine Page -->
-		<button id="return" class="return">Return</button><!-- a button to return -->
-		</a> 
-		<button onclick="close()" id="close" class="close">Close the game</button> <!--a butoon to close the game -->
-		<canvas id="canvas" class="canvas" width="400" height="400"></canvas> <!-- the game -->
-		
-	</body>
-<script src="game.js"></script>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    
+    <div class="cont-page2"><!--cont for every thing-->
+      <div class="cont-box"> <!--cont for name and chance and button-->
+        <!------------------------------------------------------------------------------------------------->
+        <div class="cont-name">
+          <h2 id="player-name" class="player-name"></h2><!-- for showing the name -->
+        </div>
+		<!------------------------------------------------------------------------------------------------->
+        <div class="cont-chance">
+          <h3 class="player-chances">
+            You have<span class="player-chances" id="player-chances"></span>chances left.<!-- for showing the chances -->
+          </h3>
+        </div>
+		<!------------------------------------------------------------------------------------------------->
+		<div class="cont-scor">
+			<h3 class="player-scor">
+			  Your scor is<span class="scor" id="scor"></span><!-- for showing the scor -->
+			</h3>
+		  </div>
+        <!------------------------------------------------------------------------------------------------->
+        <a href="Home.html"><!-- Herf to the Home Page -->
+          <button id="return" class="return">Return</button> <!-- a button to return to the home page -->
+        </a>
+		<!------------------------------------------------------------------------------------------------->
+        <button onclick="close()" id="close" class="close"><!--a butoon to close the game -->
+          Close the game
+        </button>
+      </div>
+       <!------------------------------------------------------------------------------------------------->
+      <canvas id="canvas" class="canvas" width="400" height="400"></canvas><!-- the game -->	
+    </div>
+	
+
+  </body>
+  <script src="game.js"></script>
 </html>

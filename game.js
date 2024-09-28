@@ -1,28 +1,112 @@
-function StatrGameEasy() 
-{
+let ChancesEasy = 15; // عدد الفرص للمستوى السهل
+let ChancesHard = 10; // عدد الفرص للمستوى الصعب
+let Scor = 0; // نقاط اللاعب
+
+// التأكد من الصفحة الحالية عند تحميل الصفحة
+window.onload = function() {
+    let currentPath = window.location.pathname;
+
+    // إذا كانت الصفحة الرئيسية (Home.html)
+    if (currentPath.includes('Home.html')) {
+        initializeHomePage();
+    }
+    // إذا كانت صفحة اللعبة (Game.html)
+    else if (currentPath.includes('Game.html')) {
+        initializeGamePage();
+    }
+};
+
+// دالة لتجهيز صفحة إدخال الاسم (Home.html)
+function initializeHomePage() {
+    let startEasyButton = document.querySelector('.card1 .button');
+    let startHardButton = document.querySelector('.card2 .button');
+
+    // عند الضغط على زر "Start Game" للمستوى السهل
+    startEasyButton.onclick = function() {
+        StartGameEasy();
+    };
+
+    // عند الضغط على زر "Start Game" للمستوى الصعب
+    startHardButton.onclick = function() {
+        StartGameHard();
+    };
+}
+
+// دالة تشغيل اللعبة على المستوى السهل
+function StartGameEasy() {
     let Name = document.getElementById("input-the-name").value;
-    
-    // تحقق إذا كان الاسم موجود
+
+    // التحقق من وجود الاسم
     if (!Name) {
-        alert("HELLO ! \n Enter your name first"); // رسالة خطأ
+        alert("HELLO!\nEnter your name first");
         return;
     }
 
-    localStorage.setItem("playerName", Name); // تخزين الاسم
-    window.location.href = 'Game.html'; // الانتقال إلى الصفحة الثانية
+    // تخزين الاسم وعدد الفرص في LocalStorage
+    localStorage.setItem("playerName", Name);
+    localStorage.setItem("playerChances", ChancesEasy);
+    localStorage.setItem("playerScor", Scor);
+
+    // الانتقال إلى صفحة اللعبة
+    window.location.href = 'Game.html';
 }
-//----------------------------------------------------------------------------------------------------------
-function StartGameHard() 
-{
+
+// دالة تشغيل اللعبة على المستوى الصعب
+function StartGameHard() {
     let Name = document.getElementById("input-the-name").value;
-    if (!Name) 
-	{
-        alert("HELLO ! \n Enter your name first"); // رساله خطأ
+
+    // التحقق من وجود الاسم
+    if (!Name) {
+        alert("HELLO!\nEnter your name first");
         return;
     }
-    localStorage.setItem("playerName", Name); // تخزين الاسم
-    window.location.href = 'Game.html'; // الانتقال إلى الصفحة الثانية
+
+    // تخزين الاسم وعدد الفرص في LocalStorage
+    localStorage.setItem("playerName", Name);
+    localStorage.setItem("playerChances", ChancesHard);
+    localStorage.setItem("playerScor", Scor);
+
+    // الانتقال إلى صفحة اللعبة
+    window.location.href = 'Game.html';
 }
+
+// دالة لتجهيز صفحة اللعبة (Game.html)
+function initializeGamePage() {
+    // استرجاع البيانات من LocalStorage
+    let playerName = localStorage.getItem("playerName");
+    let playerChances = localStorage.getItem("playerChances");
+    let playerScor = localStorage.getItem("playerScor");
+
+    // تحديث عناصر الصفحة
+    let nameDisplay = document.getElementById('player-name');
+    let chanceDisplay = document.getElementById('player-chances');
+    let scorDisplay = document.getElementById('scor');
+
+    if (nameDisplay) {
+        nameDisplay.innerText = `Welcome ( ${playerName.charAt(0).toUpperCase() + playerName.slice(1)} ) to Mines-vs-Treasure game`;
+    }
+
+    if (scorDisplay) {
+        scorDisplay.innerText = ` ( ${playerScor} ) `; 
+    }
+
+    if (chanceDisplay) {
+        chanceDisplay.innerText = ` ( ${playerChances} ) `; 
+    }
+
+    
+    
+    updateGameLogic(playerChances, playerScor);
+}
+
+
+function updateGameLogic(chances, score) {
+    
+    
+    
+}
+
+
 //----------------------------------------------------------------------------------------------------------
 function game() 
 {
@@ -43,6 +127,7 @@ function game()
 		}
 	}
 }
+game()
 //----------------------------------------------------------------------------------------------------------
 function close() {
 	if (confirm("Are you sure about that?"))
@@ -51,10 +136,9 @@ function close() {
 	}
 }
 //----------------------------------------------------------------------------------------------------------
-document.addEventListener("DOMContentLoaded", function() 
-{
-	let showName = document.getElementById("show-name"); 
-	let playerName = localStorage.getItem("playerName"); // استرجاع الاسم
-	showName.textContent = `Welcome ${playerName}` ; // عرض الاسم وطباعته 
-	game(); 
-});
+
+	
+
+
+
+
