@@ -91,7 +91,7 @@ function initializeGamePage() {
     }
 
     if (chanceDisplay) {
-        chanceDisplay.innerText = ` ( ${playerChances} ) `; 
+        chanceDisplay.innerText = `(${playerChances})`; 
     }
 
     
@@ -115,15 +115,23 @@ function game()
 	let rows = 8;
 	let cols = 8;
 	let cellSize = canvas.width / cols;
+	
 	// رسم المصفوفة
 	for (let row = 0; row < rows; row++) {
 		for (let col = 0; col < cols; col++) {
 			// حساب إحداثيات المربع
 			let x = col * cellSize;
 			let y = row * cellSize;
-			// رسم حدود المربع
-			ctx.strokeStyle = '#000';
+
+			// رسم الحدود الخارجية
+			ctx.strokeStyle = '#FFF'; // لون الحدود
+			ctx.lineWidth = 1; // سمك الحدود الخارجية (أعرض)
 			ctx.strokeRect(x, y, cellSize, cellSize);
+			
+			// رسم الحدود الداخلية
+			ctx.strokeStyle = '#FFF'; // لون الحدود
+			ctx.lineWidth = 1; // سمك الحدود الداخلية (أرفع)
+			ctx.strokeRect(x + 1, y + 1, cellSize - 1, cellSize - 1); // رسم الحدود الداخلية
 		}
 	}
 }
