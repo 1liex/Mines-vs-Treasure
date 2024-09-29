@@ -93,7 +93,7 @@ details summary {
 
 /*ضبط الكلام في داخل التفاصيل */
 .Simplified-explanation {
-  width: 450px;
+  width: 459px;
   font-size: 18px;
   font-weight: 800;
   font-family: "Poppins", sans-serif;
@@ -113,18 +113,21 @@ details summary {
   display: flex;
   text-align: center;
   width: 350px;
-  height: 40px;
+  padding: 8px;
   border: none;
   border-radius: 20px;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: 22px;
   margin-bottom: 60px;
+  transition: width 0.3s ease, padding 0.3s ease;
 }
 
 /*ضبط حواف حقل الادخال اثناء الكتابه*/
 .input-the-name:focus {
   outline: none;
+  padding: 13px;
+  border-radius: 20px;
 }
 
 /*ضبط حاوية البطاقات الخاصه بمستوى الصعوبة*/
@@ -148,6 +151,11 @@ details summary {
   border-radius: 20px;
   padding: 20px 30px 30px 30px;
   margin-right: 40px;
+  transition: transform 0.3s ease;
+}
+/*اضافة تاثير على البطاقة*/
+.card1:hover{
+  transform: scale(1.07);
 }
 
 /*ضبط عنوان البطاقة الاولى و الثانية*/
@@ -208,7 +216,14 @@ details summary {
   border-radius: 20px;
   padding: 20px 30px 30px 30px;
   margin-left: 40px;
+  transition: transform 0.3s ease;
 }
+
+/*اضافة تاثير على البطاقة*/
+.card2:hover{
+  transform: scale(1.07);
+}
+
 /*ضبط  حاوية شرح البطاقه الثانية*/
 .Explanation-of-the-second-card {
   background-color: #e0e0e0;
@@ -245,6 +260,13 @@ details summary {
   font-size: 15px;
   font-weight: 800;
   cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+
+.button:active{
+  transform: scale(0.95); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 /*--------------------------------------------------------------------------------*/
 
