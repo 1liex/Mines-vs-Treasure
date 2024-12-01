@@ -1,20 +1,27 @@
 let ChancesEasy = 15; // عدد الفرص للمستوى السهل
-let ChancesHard = 10; // عدد الفرص للمستوى الصعب
+let ChancesHard = 64; // عدد الفرص للمستوى الصعب
 let Scor = 0; // نقاط اللاعب
+let treasureLocation; // مكان الكنز
+let mineLocations = []; // مواقع الألغام
+let playerDifficulty; // مستوى اللعبة
+let clickedCells = new Set(); // مجموعة لتخزين الخلايا التي تم النقر عليها
+let clickSound = new Audio('click.mp3'); // صوت الضغط
+let winSound = new Audio('win.mp3'); // صوت الفوز
+let lossSound = new Audio('loss.mp3'); // صوت الخسارة
 
-// التأكد من الصفحة الحالية عند تحميل الصفحة
-window.onload = function() {
+// التأكد من أن DOM تم تحميله بالكامل
+document.addEventListener("DOMContentLoaded", function() {
     let currentPath = window.location.pathname;
 
     // إذا كانت الصفحة الرئيسية (Home.html)
     if (currentPath.includes('Home.html')) {
-        initializeHomePage();
+        initializeHomePage(); // تجهيز صفحة إدخال الاسم
     }
     // إذا كانت صفحة اللعبة (Game.html)
     else if (currentPath.includes('Game.html')) {
-        initializeGamePage();
+        initializeGamePage(); // تجهيز صفحة اللعبة
     }
-};
+});
 
 // دالة لتجهيز صفحة إدخال الاسم (Home.html)
 function initializeHomePage() {
@@ -35,49 +42,37 @@ function initializeHomePage() {
 // دالة تشغيل اللعبة على المستوى السهل
 function StartGameEasy() {
     let Name = document.getElementById("input-the-name").value;
-
-    // التحقق من وجود الاسم
     if (!Name) {
         alert("HELLO!\nEnter your name first");
         return;
     }
-
-    // تخزين الاسم وعدد الفرص في LocalStorage
+    playerDifficulty = "easy"; // تعيين مستوى الصعوبة
     localStorage.setItem("playerName", Name);
     localStorage.setItem("playerChances", ChancesEasy);
     localStorage.setItem("playerScor", Scor);
-
-    // الانتقال إلى صفحة اللعبة
     window.location.href = 'Game.html';
 }
 
 // دالة تشغيل اللعبة على المستوى الصعب
 function StartGameHard() {
     let Name = document.getElementById("input-the-name").value;
-
-    // التحقق من وجود الاسم
     if (!Name) {
         alert("HELLO!\nEnter your name first");
         return;
     }
-
-    // تخزين الاسم وعدد الفرص في LocalStorage
+    playerDifficulty = "hard"; // تعيين مستوى الصعوبة
     localStorage.setItem("playerName", Name);
     localStorage.setItem("playerChances", ChancesHard);
     localStorage.setItem("playerScor", Scor);
-
-    // الانتقال إلى صفحة اللعبة
     window.location.href = 'Game.html';
 }
 
 // دالة لتجهيز صفحة اللعبة (Game.html)
 function initializeGamePage() {
-    // استرجاع البيانات من LocalStorage
     let playerName = localStorage.getItem("playerName");
     let playerChances = localStorage.getItem("playerChances");
     let playerScor = localStorage.getItem("playerScor");
 
-    // تحديث عناصر الصفحة
     let nameDisplay = document.getElementById('player-name');
     let chanceDisplay = document.getElementById('player-chances');
     let scorDisplay = document.getElementById('scor');
@@ -85,68 +80,147 @@ function initializeGamePage() {
     if (nameDisplay) {
         nameDisplay.innerText = `Welcome ( ${playerName.charAt(0).toUpperCase() + playerName.slice(1)} ) to Mines-vs-Treasure game`;
     }
-
     if (scorDisplay) {
         scorDisplay.innerText = ` ( ${playerScor} ) `; 
     }
-
     if (chanceDisplay) {
         chanceDisplay.innerText = `(${playerChances})`; 
     }
 
-    
-    
     updateGameLogic(playerChances, playerScor);
 }
 
-
 function updateGameLogic(chances, score) {
-    
-    
-    
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let rows = 8;
+    let cols = 8;
+    let cellSize = canvas.width / cols;
+
+    // رسم المصفوفة
+    for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+            let x = col * cellSize;
+            let y = row * cellSize;
+            ctx.strokeStyle = '#FFF';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x, y, cellSize, cellSize);
+        }
+    }
+
+    // تحديد موقع الكنز
+    treasureLocation = Math.floor(Math.random() * (rows * cols));
+
+    // وضع الألغام بناءً على المستوى المختار
+    let numberOfMines = (playerDifficulty === "easy") ? 12 : 24; // عدد الألغام بناءً على المستوى
+    while (mineLocations.length < numberOfMines) {
+        let mineLocation = Math.floor(Math.random() * (rows * cols));
+        if (mineLocation !== treasureLocation && !mineLocations.includes(mineLocation)) {
+            mineLocations.push(mineLocation);
+        }
+    }
+
+    // إضافة حدث للنقر على كل خلية
+    canvas.addEventListener('click', function(event) {
+        let rect = canvas.getBoundingClientRect();
+        let mouseX = event.clientX - rect.left;
+        let mouseY = event.clientY - rect.top;
+        let clickedCol = Math.floor(mouseX / cellSize);
+        let clickedRow = Math.floor(mouseY / cellSize);
+        let clickedIndex = clickedRow * cols + clickedCol;
+
+        handleCellClick(clickedIndex);
+    });
 }
 
+function handleCellClick(index) {
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let rows = 8;
+    let cols = 8;
+    let cellSize = canvas.width / cols;
+    let clickedRow = Math.floor(index / cols);
+    let clickedCol = index % cols;
+    let x = clickedCol * cellSize;
+    let y = clickedRow * cellSize;
 
-//----------------------------------------------------------------------------------------------------------
-function game() 
-{
-	let canvas = document.getElementById('canvas');
-	let ctx = canvas.getContext('2d');
-	let rows = 8;
-	let cols = 8;
-	let cellSize = canvas.width / cols;
-	
-	// رسم المصفوفة
-	for (let row = 0; row < rows; row++) {
-		for (let col = 0; col < cols; col++) {
-			// حساب إحداثيات المربع
-			let x = col * cellSize;
-			let y = row * cellSize;
+    // تشغيل صوت الضغط
+    clickSound.play();
 
-			// رسم الحدود الخارجية
-			ctx.strokeStyle = '#FFF'; // لون الحدود
-			ctx.lineWidth = 1; // سمك الحدود الخارجية (أعرض)
-			ctx.strokeRect(x, y, cellSize, cellSize);
-			
-			// رسم الحدود الداخلية
-			ctx.strokeStyle = '#FFF'; // لون الحدود
-			ctx.lineWidth = 1; // سمك الحدود الداخلية (أرفع)
-			ctx.strokeRect(x + 1, y + 1, cellSize - 1, cellSize - 1); // رسم الحدود الداخلية
-		}
-	}
+    // لو اللاعب ضغط على نفس الخلية قبل كذا
+    if (clickedCells.has(index)) {
+        alert("خلاص ضغطت هذي الخلية من قبل!");
+        return; // نوقف هنا وما نخليه يكمل
+    }
+
+    clickedCells.add(index); // نحط الخلية بمجموعة الخلايا اللي تم الضغط عليها
+
+    let playerChances = parseInt(localStorage.getItem("playerChances"));
+    let playerScor = parseInt(localStorage.getItem("playerScor"));
+
+    // لو اللاعب لقى الكنز
+    if (index === treasureLocation) {
+        winSound.play(); // صوت الفوز
+        alert("مبروك! لقيت الكنز 🎉");
+        playerScor += 10; // نزود النقاط
+        localStorage.setItem("playerScor", playerScor);
+        ctx.fillStyle = "gold"; // نخلي الخلية لونها ذهبي
+        ctx.fillRect(x, y, cellSize, cellSize);
+        ctx.fillStyle = "black";
+        ctx.font = "20px Arial";
+        ctx.fillText("💎", x + cellSize / 3, y + cellSize / 1.5); // نحط علامة الكنز
+        askToContinue(); // نسأل اللاعب لو يبغى يكمل اللعبة
+    } 
+    // لو ضغط على لغم
+    else if (mineLocations.includes(index)) {
+        lossSound.play(); // صوت الخسارة
+        alert("انفجرت! بس لسه تقدر تكمل 💥");
+        playerChances -= 2; // نقلل الفرص
+        playerScor -= 8; // نقص النقاط
+        localStorage.setItem("playerScor", playerScor);
+        ctx.fillStyle = "red"; // نخلي لون الخلية أحمر
+        ctx.fillRect(x, y, cellSize, cellSize);
+        ctx.fillStyle = "black";
+        ctx.font = "20px Arial";
+        ctx.fillText("💣", x + cellSize / 3, y + cellSize / 1.5); // نحط علامة اللغم
+    } 
+    // لو الخلية آمنة
+    else {
+        alert("آمنة! كمل 👍");
+        playerScor += 3; // نزود النقاط
+        localStorage.setItem("playerScor", playerScor); // نحفظ النقاط
+        ctx.fillStyle = "green"; // نخلي لون الخلية أخضر
+        ctx.fillRect(x, y, cellSize, cellSize);
+        ctx.fillStyle = "black";
+        ctx.font = "20px Arial";
+        ctx.fillText("✔️", x + cellSize / 3, y + cellSize / 1.5); // نحط علامة التحقق
+    }
+
+    // نحدث العرض للنقاط والفرص بعد الضغط
+    document.getElementById('scor').innerText = ` ( ${playerScor} ) `;
+    playerChances--; // نقلل عدد الفرص
+    localStorage.setItem("playerChances", playerChances); // نحفظ الفرص
+    document.getElementById('player-chances').innerText = `(${playerChances})`;
+
+    // لو خلصت الفرص
+    if (playerChances <= 0) {
+        alert("خلصت الفرص! انتهت اللعبة.");
+        askToContinue(); // نسأل اللاعب لو يبغى يكمل أو يروح لصفحة النهاية
+    }
 }
-game()
-//----------------------------------------------------------------------------------------------------------
+
+// دالة تسأل إذا كان اللاعب يريد الاستمرار في اللعب
+function askToContinue() {
+    let continuePlaying = confirm("Do you want to continue playing? Click OK for Home, Cancel to go to End Page.");
+    if (continuePlaying) {
+        window.location.href = 'Home.html'; // العودة إلى الصفحة الرئيسية
+    } else {
+        window.location.href = 'end.html'; // الانتقال إلى صفحة النهاية
+    }
+}
+
 function close() {
-	if (confirm("Are you sure about that?"))
-	{
-		window.close();
-	}
+    if (confirm("Are you sure about that?")) {
+        window.close();
+    }
 }
-//----------------------------------------------------------------------------------------------------------
-
-	
-
-
-
-
