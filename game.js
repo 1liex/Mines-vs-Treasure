@@ -147,21 +147,29 @@ function handleCellClick(index) {
     // تشغيل صوت الضغط
     clickSound.play();
 
+    // التحقق من عدد المحاولات المتبقية
+    let playerChances = parseInt(localStorage.getItem("playerChances"));
+
+    if (playerChances <= 0) {
+        // إذا انتهت المحاولات، لا يمكن النقر على أي خلية أخرى
+        document.getElementById('result').innerText = "خلصت المحاولات! انتهت اللعبة.";
+        return;
+    }
+
     // لو اللاعب ضغط على نفس الخلية قبل كذا
     if (clickedCells.has(index)) {
-        alert("خلاص ضغطت هذي الخلية من قبل!");
+        document.getElementById('result').innerText = "خلاص ضغطت هذي الخلية من قبل!";
         return; // نوقف هنا وما نخليه يكمل
     }
 
     clickedCells.add(index); // نحط الخلية بمجموعة الخلايا اللي تم الضغط عليها
 
-    let playerChances = parseInt(localStorage.getItem("playerChances"));
     let playerScor = parseInt(localStorage.getItem("playerScor"));
 
     // لو اللاعب لقى الكنز
     if (index === treasureLocation) {
         winSound.play(); // صوت الفوز
-        alert("مبروك! لقيت الكنز 🎉");
+        document.getElementById('result').innerText = "مبروك! لقيت الكنز 🎉";
         playerScor += 10; // نزود النقاط
         localStorage.setItem("playerScor", playerScor);
         ctx.fillStyle = "gold"; // نخلي الخلية لونها ذهبي
@@ -169,12 +177,18 @@ function handleCellClick(index) {
         ctx.fillStyle = "black";
         ctx.font = "20px Arial";
         ctx.fillText("💎", x + cellSize / 3, y + cellSize / 1.5); // نحط علامة الكنز
-        askToContinue(); // نسأل اللاعب لو يبغى يكمل اللعبة
+
+        // منع اللاعب من النقر على أي خلية أخرى
+        canvas.style.pointerEvents = "none";
+
+        // استدعاء الدالة التي تسأل اللاعب إذا كان يريد الاستمرار
+        askToContinue();
+        return;
     } 
     // لو ضغط على لغم
     else if (mineLocations.includes(index)) {
         lossSound.play(); // صوت الخسارة
-        alert("انفجرت! بس لسه تقدر تكمل 💥");
+        document.getElementById('result').innerText = "انفجرت! بس لسه تقدر تكمل 💥";
         playerChances -= 2; // نقلل الفرص
         playerScor -= 8; // نقص النقاط
         localStorage.setItem("playerScor", playerScor);
@@ -186,7 +200,7 @@ function handleCellClick(index) {
     } 
     // لو الخلية آمنة
     else {
-        alert("آمنة! كمل 👍");
+        document.getElementById('result').innerText = "آمنة! كمل 👍";
         playerScor += 3; // نزود النقاط
         localStorage.setItem("playerScor", playerScor); // نحفظ النقاط
         ctx.fillStyle = "green"; // نخلي لون الخلية أخضر
@@ -196,7 +210,7 @@ function handleCellClick(index) {
         ctx.fillText("✔️", x + cellSize / 3, y + cellSize / 1.5); // نحط علامة التحقق
     }
 
-    // نحدث العرض للنقاط والفرص بعد الضغط
+    // تحديث العرض للنقاط والفرص بعد الضغط
     document.getElementById('scor').innerText = ` ( ${playerScor} ) `;
     playerChances--; // نقلل عدد الفرص
     localStorage.setItem("playerChances", playerChances); // نحفظ الفرص
@@ -204,19 +218,32 @@ function handleCellClick(index) {
 
     // لو خلصت الفرص
     if (playerChances <= 0) {
-        alert("خلصت الفرص! انتهت اللعبة.");
+        document.getElementById('result').innerText = "خلصت المحاولات! انتهت اللعبة.";
+        canvas.style.pointerEvents = "none"; // منع النقر على الخلايا
         askToContinue(); // نسأل اللاعب لو يبغى يكمل أو يروح لصفحة النهاية
     }
 }
 
 // دالة تسأل إذا كان اللاعب يريد الاستمرار في اللعب
 function askToContinue() {
-    let continuePlaying = confirm("Do you want to continue playing? Click OK for Home, Cancel to go to End Page.");
-    if (continuePlaying) {
+    // العنصر الذي سيتم فيه عرض السؤال وخيارات اللاعب
+    let resultElement = document.getElementById('result');
+
+    // تحديث النص للسؤال
+    resultElement.innerHTML = `
+        انتهت اللعبة! هل ترغب في الاستمرار؟
+        <button id="continue-button">العودة إلى الصفحة الرئيسية</button>
+        <button id="end-button">الانتقال إلى صفحة النهاية</button>
+    `;
+
+    // إضافة الأحداث للأزرار
+    document.getElementById('continue-button').onclick = function() {
         window.location.href = 'Home.html'; // العودة إلى الصفحة الرئيسية
-    } else {
+    };
+
+    document.getElementById('end-button').onclick = function() {
         window.location.href = 'end.html'; // الانتقال إلى صفحة النهاية
-    }
+    };
 }
 
 function close() {
