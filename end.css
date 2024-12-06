@@ -1,0 +1,51 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+   
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+    background: url(media/3d-cartoon-night-sky\ \(1\).jpg) no-repeat;
+    min-width: 100%;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;   background-repeat: no-repeat;
+}
+
+
+h1{
+    display: flex;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+    color: white;
+}
+
+.box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
+    width: 50%;
+    padding: 1em;
+    backdrop-filter: blur(8px);
+    margin: 20px 0 60px 0;
+    padding: 10px 30px;
+}
+
+.cont-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+
+

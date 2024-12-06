@@ -1,5 +1,5 @@
-let ChancesEasy = 15; // عدد الفرص للمستوى السهل
-let ChancesHard = 64; // عدد الفرص للمستوى الصعب
+let ChancesEasy = 20; // عدد الفرص للمستوى السهل
+let ChancesHard = 15; // عدد الفرص للمستوى الصعب
 let Scor = 0; // نقاط اللاعب
 let treasureLocation; // مكان الكنز
 let mineLocations = []; // مواقع الألغام
@@ -152,13 +152,13 @@ function handleCellClick(index) {
 
     if (playerChances <= 0) {
         // إذا انتهت المحاولات، لا يمكن النقر على أي خلية أخرى
-        document.getElementById('result').innerText = "خلصت المحاولات! انتهت اللعبة.";
+        document.getElementById('result').innerText = "You Have No Chances Left";
         return;
     }
 
     // لو اللاعب ضغط على نفس الخلية قبل كذا
     if (clickedCells.has(index)) {
-        document.getElementById('result').innerText = "خلاص ضغطت هذي الخلية من قبل!";
+        document.getElementById('result').innerText = "You Have Click This Button";
         return; // نوقف هنا وما نخليه يكمل
     }
 
@@ -231,8 +231,8 @@ function askToContinue() {
 
     // تحديث النص للسؤال
     resultElement.innerHTML = `
-        انتهت اللعبة! هل ترغب في الاستمرار؟
-        <button id="continue-button">العودة إلى الصفحة الرئيسية</button>
+        Game Over! Do you want to continue?
+        <button id="continue-button" class = "continue-button">العودة إلى الصفحة الرئيسية</button>
         <button id="end-button">الانتقال إلى صفحة النهاية</button>
     `;
 
