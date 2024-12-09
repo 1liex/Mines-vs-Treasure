@@ -1,4 +1,4 @@
-let ChancesEasy = 15; // عدد الفرص للمستوى السهل
+let ChancesEasy = 64; // عدد الفرص للمستوى السهل
 let ChancesHard = 64; // عدد الفرص للمستوى الصعب
 let Scor = 0; // نقاط اللاعب
 let treasureLocation; // مكان الكنز
@@ -133,6 +133,35 @@ function updateGameLogic(chances, score) {
     });
 }
 
+// باقي الأكواد الموجودة مسبقًا...
+
+// تعريف دالة scores في النهاية
+function scores() {
+    let playerScor = parseInt(localStorage.getItem("playerScor")) || 0;
+    let messageElement = document.getElementById("scores_message");
+
+    if (!messageElement) {
+        console.error("Element with id 'scores_message' not found.");
+        return;
+    }
+
+    let message;
+    if (playerScor < 0) {
+        message = "JUST GIVE UP 🤡";
+    } else if (playerScor >= 1 && playerScor <= 30) {
+        message = "little points 🌞";
+    } else if (playerScor >= 31 && playerScor <= 70) {
+        message = "you can do better than this!";
+    } else if (playerScor >= 71 && playerScor <= 100) {
+        message = "you are amazing, keep going!";
+    } else if (playerScor >= 101) {
+        message = "you are a hacker 🧿";
+    }
+
+    messageElement.innerText = message;
+}
+
+// دالة للتعامل مع الضغط على الخلايا
 function handleCellClick(index) {
     let canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
@@ -152,13 +181,13 @@ function handleCellClick(index) {
 
     if (playerChances <= 0) {
         // إذا انتهت المحاولات، لا يمكن النقر على أي خلية أخرى
-        document.getElementById('result').innerText = "خلصت المحاولات! انتهت اللعبة.";
+        document.getElementById('result').innerText = "You Have No Chances Left";
         return;
     }
 
     // لو اللاعب ضغط على نفس الخلية قبل كذا
     if (clickedCells.has(index)) {
-        document.getElementById('result').innerText = "خلاص ضغطت هذي الخلية من قبل!";
+        document.getElementById('result').innerText = "You Have Click This Button";
         return; // نوقف هنا وما نخليه يكمل
     }
 
@@ -169,9 +198,9 @@ function handleCellClick(index) {
     // لو اللاعب لقى الكنز
     if (index === treasureLocation) {
         winSound.play(); // صوت الفوز
-        document.getElementById('result').innerText = "مبروك! لقيت الكنز 🎉";
+        document.getElementById('result').innerText = "NICE JOB YOU HAVE FOUND THE 🎉";
         playerScor += 10; // نزود النقاط
-        localStorage.setItem("playerScor", playerScor);
+        localStorage.setItem("playerScor", playerScor); // حفظ النقاط
         ctx.fillStyle = "gold"; // نخلي الخلية لونها ذهبي
         ctx.fillRect(x, y, cellSize, cellSize);
         ctx.fillStyle = "black";
@@ -181,6 +210,9 @@ function handleCellClick(index) {
         // منع اللاعب من النقر على أي خلية أخرى
         canvas.style.pointerEvents = "none";
 
+        // استدعاء دالة `scores` لتحديث الرسالة بناءً على النقاط
+        scores();
+
         // استدعاء الدالة التي تسأل اللاعب إذا كان يريد الاستمرار
         askToContinue();
         return;
@@ -189,9 +221,9 @@ function handleCellClick(index) {
     else if (mineLocations.includes(index)) {
         lossSound.play(); // صوت الخسارة
         document.getElementById('result').innerText = "انفجرت! بس لسه تقدر تكمل 💥";
-        playerChances -= 2; // نقلل الفرص
-        playerScor -= 8; // نقص النقاط
-        localStorage.setItem("playerScor", playerScor);
+        playerChances -= 3; // نقلل الفرص
+        playerScor -= 7; // نقص النقاط
+        localStorage.setItem("playerScor", playerScor); // حفظ النقاط
         ctx.fillStyle = "red"; // نخلي لون الخلية أحمر
         ctx.fillRect(x, y, cellSize, cellSize);
         ctx.fillStyle = "black";
@@ -201,7 +233,7 @@ function handleCellClick(index) {
     // لو الخلية آمنة
     else {
         document.getElementById('result').innerText = "آمنة! كمل 👍";
-        playerScor += 3; // نزود النقاط
+        playerScor += 8; // نزود النقاط
         localStorage.setItem("playerScor", playerScor); // نحفظ النقاط
         ctx.fillStyle = "green"; // نخلي لون الخلية أخضر
         ctx.fillRect(x, y, cellSize, cellSize);
@@ -215,6 +247,9 @@ function handleCellClick(index) {
     playerChances--; // نقلل عدد الفرص
     localStorage.setItem("playerChances", playerChances); // نحفظ الفرص
     document.getElementById('player-chances').innerText = `(${playerChances})`;
+
+    // استدعاء دالة `scores` لتحديث الرسالة بناءً على النقاط بعد كل عملية
+    scores();
 
     // لو خلصت الفرص
     if (playerChances <= 0) {
@@ -231,9 +266,9 @@ function askToContinue() {
 
     // تحديث النص للسؤال
     resultElement.innerHTML = `
-        انتهت اللعبة! هل ترغب في الاستمرار؟
-        <button id="continue-button">العودة إلى الصفحة الرئيسية</button>
-        <button id="end-button">الانتقال إلى صفحة النهاية</button>
+        Game Over! Do you want to continue?
+        <button id="continue-button" class = "continue-button">YES</button>
+        <button id="end-button">NO</button>
     `;
 
     // إضافة الأحداث للأزرار
